@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Repositories\UserRepository;
+use App\Services\Interfaces\UserServiceInterface;
 use Exception;
 
-class UserService
+class UserService implements UserServiceInterface
 {
     private UserRepository $userRepository;
 

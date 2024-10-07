@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use PDO;
 use PDOException;
 
-class UserRepository
+class UserRepository implements UserRepositoryInterface
 {
     private const MAX_CHUNK_SIZE = 500;
     private PDO $connection;
