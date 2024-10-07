@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Сonfig;
+namespace Config;
 
 use Exception;
 

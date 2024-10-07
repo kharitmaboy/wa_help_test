@@ -11,7 +11,7 @@ class UserController
 {
     private UserService $userService;
 
-    public function __construct(UserService  $userService)
+    public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }
@@ -21,10 +21,12 @@ class UserController
      */
     public function handleFileImport(): void
     {
+        /**
+         * @todo Унифицировать под загрузку файла под любым ключом, а не только под ключом csv_data_file
+         */
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_data_file'])) {
             $file = $_FILES['csv_data_file'];
-
-            if ($file['error'] === UPLOAD_ERR_OK) {
+            if ($file['error'] !== UPLOAD_ERR_OK) {
                 throw new Exception('Error while uploading file');
             }
 

@@ -15,8 +15,8 @@ class MySQLDatabase implements DatabaseConnectionInterface
     {
         $host = getenv('DB_HOST');
         $port = getenv('DB_PORT');
-        $dbname = getenv('DB_NAME');
-        $user = getenv('DB_USER');
+        $dbname = getenv('DB_DATABASE');
+        $user = getenv('DB_USERNAME');
         $password = getenv('DB_PASSWORD');
 
         $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";

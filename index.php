@@ -7,9 +7,9 @@ require __DIR__ . '/autoload.php';
 use App\Controllers\UserController;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
+use Config\EnvLoader;
 use Database\DatabaseConnectionFactory;
-use routes\Router;
-use Сonfig\EnvLoader;
+use Routes\Router;
 
 try {
     EnvLoader::load(__DIR__ . '/.env');
@@ -29,6 +29,6 @@ try {
     $requestUri = strtok($_SERVER['REQUEST_URI'], '?');
     $router->dispatch($requestUri);
 } catch (Exception $e) {
-
+    echo $e->getMessage();
 }
 

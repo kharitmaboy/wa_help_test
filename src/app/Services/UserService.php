@@ -26,6 +26,16 @@ class UserService
         }
 
         $users = [];
+        if (($handle = fopen($filePath, 'r')) !== false) {
+            while (($data = fgetcsv($handle)) !== false) {
+                $users[] = [
+                    'number' => $data[0],
+                    'name' => $data[1]
+                ];
+            }
+            fclose($handle);
+        }
+
         $this->userRepository->saveUsers($users);
     }
 }
