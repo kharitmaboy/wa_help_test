@@ -8,6 +8,7 @@ class Router
 {
     private array $routes = [];
 
+    /** @todo Реализовать поддержку разных методов http, чтоюы не проверять постоянно в контроллерах */
     public function add(string $route, callable $callback): void
     {
         $this->routes[$route] = $callback;

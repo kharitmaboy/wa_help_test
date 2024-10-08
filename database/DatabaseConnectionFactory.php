@@ -6,6 +6,9 @@ namespace Database;
 
 use Exception;
 
+/**
+ * Фабрика позволяет использовать любую СУБД, прописанную в .env
+ */
 class DatabaseConnectionFactory
 {
     /**

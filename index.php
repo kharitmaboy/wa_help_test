@@ -21,6 +21,11 @@ try {
     $dbConnection = DatabaseConnectionFactory::create();
     $dbConnection->connect();
 
+    /** @todo
+     * Возможно стоит сделать общие контроллер, сервис и репозиторий,
+     * в которых происходит инициализация нужных нам контроллеров, сервисов и репозиториев,
+     * чтобы приложение было более удобно расширять
+     */
     $userRepository = new UserRepository($dbConnection->getConnection());
     $userService = new UserService($userRepository);
     $userController = new UserController($userService);
@@ -32,14 +37,20 @@ try {
 
     $router = new Router();
 
+    // endpoint для загрузки пользователей из csv файла
     $router->add('/upload', function () use ($userController) {
         $userController->handleFileImport();
     });
 
+    // endpoint для прохода по пользоватлеям и добавления в очередь на отправку рассылки
     $router->add('/add_mailing', function () use ($mailingController) {
         $mailingController->handleAddMailing();
     });
 
+    /** @todo По-хорошему воркер должен быть всегда запущен
+     * То есть более правильно было бы запускать его по крону
+     * или настроить supervisor, если не использовать библиотеки php
+     */
     $router->add('/mailing', function () use ($mailingController) {
         $mailingController->handleMailing();
     });

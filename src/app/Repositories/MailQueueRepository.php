@@ -20,6 +20,7 @@ class MailQueueRepository implements MailQueueRepositoryInterface
 
     public function addToQueue(array $usersIds, int $mailingId): void
     {
+        // В очередь на рассылку добавляем пачками по 500 для оптимизации запросов к БД
         $usersIdsChunks = array_chunk($usersIds, self::MAX_CHUNK_SIZE);
 
         foreach ($usersIdsChunks as $usersIdsChunk) {
