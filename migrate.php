@@ -6,6 +6,8 @@ require __DIR__ . '/autoload.php';
 
 use Config\EnvLoader;
 use Database\DatabaseConnectionFactory;
+use Migrations\CreateMailingsTable;
+use Migrations\CreateMailQueueTable;
 use Migrations\CreateUsersTable;
 
 try {
@@ -13,8 +15,14 @@ try {
 
     $dbConnection = DatabaseConnectionFactory::create();
     $dbConnection->connect();
-    $migration = new CreateUsersTable($dbConnection->getConnection());
-    $migration->up();
+
+    $migrationUsersTable = new CreateUsersTable($dbConnection->getConnection());
+    $migrationMailingsTable = new CreateMailingsTable($dbConnection->getConnection());
+    $migrationMailQueueTable = new CreateMailQueueTable($dbConnection->getConnection());
+
+    $migrationUsersTable->up();
+    $migrationMailingsTable->up();
+    $migrationMailQueueTable->up();
 } catch (Exception $e) {
     echo $e->getMessage();
 }

@@ -47,4 +47,18 @@ class UserRepository implements UserRepositoryInterface
             }
         }
     }
+
+    public function getUsers(): array
+    {
+        $query = "SELECT id FROM users;";
+
+        try {
+            $stmt = $this->connection->prepare($query);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        } catch (PDOException $e) {
+            throw new PDOException('Error getting users for mailing: ' . $e->getMessage());
+        }
+    }
 }
